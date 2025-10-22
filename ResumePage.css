@@ -1,0 +1,78 @@
+.resume-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2, h3 {
+  text-align: center;
+  color: #333;
+}
+
+.input-group, .nested-inputs, .project-inputs {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+input:focus, textarea:focus {
+  border-color: #007bff;
+}
+
+.section {
+  margin-top: 25px;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.save-btn {
+  width: 100%;
+  font-size: 16px;
+  background: #28a745;
+}
+
+.save-btn:hover {
+  background: #1e7e34;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+@media (max-width: 768px) {
+  .resume-container {
+    padding: 15px;
+  }
+
+  input, textarea {
+    font-size: 13px;
+  }
+}
