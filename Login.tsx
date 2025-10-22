@@ -1,31 +1,45 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { login as loginService } from "../services/authService"; // 👈 renamed to avoid conflict
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useAuth(); // ✅ use custom hook, safe and typed
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:8080/api/auth/login', { email, password });
-      localStorage.setItem('token', res.data.accessToken);
-      alert('Login successful');
+      const res = await loginService(email, password);
+      login(res.data.token); // ✅ call context login
     } catch (err) {
-      alert('Invalid credentials');
+      console.error(err);
+      alert("Invalid credentials");
     }
   };
 
   return (
-    <div>
+    <div className="form-container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+        <input
+          placeholder="Email"
+          type="email"
+          value={email}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
+        />
+        <input
+          placeholder="Password"
+          type="password"
+          value={password}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
+        />
         <button type="submit">Login</button>
       </form>
     </div>
   );
 }
-
-export default Login;
